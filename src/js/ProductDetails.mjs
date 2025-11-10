@@ -27,6 +27,10 @@ export default class ProductDetails {
 
 }
 
+
+
+
+
 function productDetailsTemplate(product) {
     document.querySelector('h2').textContent = this.product.Brand.Name;
     document.querySelector('h3').textContent = this.product.NameWithoutBrand;
