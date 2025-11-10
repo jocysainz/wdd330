@@ -28,8 +28,8 @@ export default class ProductDetails {
 }
 
 function productDetailsTemplate(product) {
-    document.querySelector('h2').textContent = product.Brand.Name;
-    document.querySelector('h3').textContent = product.NameWithoutBrand;
+    document.querySelector('h2').textContent = this.product.Brand.Name;
+    document.querySelector('h3').textContent = this.product.NameWithoutBrand;
 
     const productImage = document.getElementById('productImage');
     productImage.src = product.Image;
