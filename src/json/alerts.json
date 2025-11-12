@@ -1,0 +1,12 @@
+[
+  {
+    "message": "Welcome to our cozy tent collection!", 
+    "backgroundColor": "#FFB6C1",
+    "textColor": "#4B0082"
+  },
+  {
+    "message": "Weekend sale: extra marshmallows for free!",
+    "backgroundColor": "#FFD700",
+    "textColor": "#8B0000"
+  }
+]
