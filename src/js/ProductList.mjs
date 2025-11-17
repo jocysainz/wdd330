@@ -18,10 +18,38 @@ export default class ProducList {
         this.listElement = listElement;
     }
     async init() {
-        const list = await this.dataSource.getData();
+        const list = await this.dataSource.getData(this.category);
         this.renderList(list);
     }
     renderList(list) {
         renderListWithTemplate(productCardTemplate, this.listElement, list);
     }
+// Individual Work
+    renderProduct(product) {
+        const final = product.FinalPrice;
+        const retail = product.SuggestedRetailPrice;
+
+        let discountBadge = "";
+        if (final < retail) {
+            const percent = Math.round(((retail - final) / retail) * 100);
+            discountBadge = `<span class="discount-badge">-${percent}%</span>`;
+        }
+
+        return `
+      <div class="product-card">
+        ${discountBadge}
+        <a href="../product_pages/index.html?Id=${product.Id}">
+          <img src="${product.Images[0]}" alt="${product.Name}">
+          <h3>${product.Name}</h3>
+        </a>
+
+        <div class="price">
+          <span class="final-price">$${final.toFixed(2)}</span>
+          ${final < retail ? `<span class="retail-price"><s>$${retail.toFixed(2)}</s></span>` : ""}
+        </div>
+      </div>
+    `;
+    }
+
 }
+
