@@ -1,17 +1,23 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import {
+  getLocalStorage,
+  setLocalStorage,
+  loadHeaderFooter,
+} from "./utils.mjs";
+
+loadHeaderFooter();
 
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
+  let cartItems = getLocalStorage("so-cart");
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
-  let deleteButtons = document.querySelectorAll('.btn');
+  let deleteButtons = document.querySelectorAll(".btn");
   for (let i = 0; i < deleteButtons.length; i++) {
-    deleteButtons[i].addEventListener('click', () => {
-      let cartItems = getLocalStorage("so-cart");
-      cartItems = cartItems.filter(item => item.Id !== deleteButtons[i].id);
+    deleteButtons[i].addEventListener("click", () => {
+      cartItems = getLocalStorage("so-cart");
+      cartItems = cartItems.filter((item) => item.Id !== deleteButtons[i].id);
       setLocalStorage("so-cart", cartItems);
       renderCartContents();
-    })
+    });
   }
 }
 
@@ -31,7 +37,7 @@ function cartItemTemplate(item) {
   <p class="cart-card__price">$${item.FinalPrice}</p>
   <button class="btn" id="${item.Id}">❌</button>
 </li>`;
-  
+
   return newItem;
 }
 

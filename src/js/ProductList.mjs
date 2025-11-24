@@ -8,7 +8,7 @@ function productCardTemplate(product) {
             <h3 class="card__brand">${product.Name}</h3>
             <p class="product-card__price">$${product.FinalPrice}</p>
         </a>
-    </li>`
+    </li>`;
 }
 
 export default class ProducList {
@@ -18,8 +18,9 @@ export default class ProducList {
         this.listElement = listElement;
     }
     async init() {
-        const list = await this.dataSource.getData();
+        const list = await this.dataSource.getData(this.category);
         this.renderList(list);
+        document.querySelector(".title").textContent = this.category;
     }
     renderList(list) {
         renderListWithTemplate(productCardTemplate, this.listElement, list);
