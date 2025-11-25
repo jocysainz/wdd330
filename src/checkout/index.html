@@ -2,13 +2,11 @@
 
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sleep Outside | Checkout</title>
-
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="../js/checkout.js" type="module"></script>
   </head>
 
   <body>
@@ -17,7 +15,8 @@
     <main class="divider checkout">
       <h2>Review & Place your Order</h2>
       <section class="checkout-form">
-        <form name="checkout" method="post" action="https://wdd330-backend.onrender.com:3000/checkout">
+        <form name="checkout">
+          <input type="hidden" name="orderDate" id="orderDate">
           <fieldset>
             <legend></legend>
             <div class="checkout__name">
@@ -44,7 +43,7 @@
               <input type="text" name="cardNumber" id="cardNumber" required />
               <label for="exp">Expiration</label>
               <input type="text" name="exp" id="exp" required />
-              <label for="cvv">CVV</label>
+              <label for="code">CVV</label>
               <input type="text" name="cvv" id="cvv" required />
             </div>
           </fieldset>
@@ -53,15 +52,15 @@
 
             <div class="order__summary">
               <div>Items</div>
-              <div id="numberItems"></div>
+              <div id="num-items"></div>
               <div>Subtotal</div>
               <div id="cartTotal"></div>
-              <div>Shipping</div>
               <div>Tax</div>
               <div id="tax"></div>
+              <div>Shipping</div>
               <div id="shipping"></div>
               <div>Total</div>
-              <div id="total"></div>
+              <div id="orderTotal"></div>
             </div>
           </fieldset>
           <button type="submit" id="checkoutSubmit">Checkout</button>
