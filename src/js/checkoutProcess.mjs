@@ -37,4 +37,30 @@ export default class CheckoutProcess {
 
         tax.innerText = `$${this.tax.toFixed(2)}`;
     }
+
+    // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
+    packageItems(items) {
+    // convert the list of products from localStorage to the simpler form required for the checkout process.
+    // An Array.map would be perfect for this process.
+
+    }
+
+    async checkout(form) {
+        // get the form element data by the form name
+        // convert the form data to a JSON order object using the formDataToJSON function
+        // populate the JSON order object with the order Date, orderTotal, tax, shipping, and list of items
+        // call the checkout method in the ExternalServices module and send it the JSON order data.
+    }
+
+    // takes a form element and returns an object where the key is the "name" of the form input.
+    formDataToJSON(formElement) {
+        const formData = new FormData(formElement),
+            convertedJSON = {};
+
+        formData.forEach(function (value, key) {
+            convertedJSON[key] = value;
+        });
+
+        return convertedJSON;
+    }
 }
