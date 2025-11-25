@@ -1,4 +1,5 @@
 import { renderListWithTemplate } from "./utils.mjs";
+import Auth from "./auth.mjs";
 
 function productCardTemplate(product) {
     return `<li class="product-card">
@@ -16,8 +17,14 @@ export default class ProducList {
         this.category = category;
         this.dataSource = dataSource;
         this.listElement = listElement;
+        this.auth = new Auth();
     }
     async init() {
+        if (!this.auth.isAuthenticated()) {
+            console.log("User not authenticated. Access denied.");
+            this.listElement.innerHTML = "<p>Please log in to view products.</p>";
+            return;
+        }
         const list = await this.dataSource.getData();
         this.renderList(list);
     }
