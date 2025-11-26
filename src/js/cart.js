@@ -8,8 +8,31 @@ loadHeaderFooter();
 
 function renderCartContents() {
   let cartItems = getLocalStorage("so-cart");
+
+  if (!Array.isArray(cartItems)) {
+    cartItems = [];
+  }
+
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
+
+  const cartFooter = document.querySelector(".cart-footer");
+  const cartTotalElement = document.querySelector(".cart-total");
+
+  if (cartItems.length > 0) {
+    cartFooter.classList.remove("hide");
+
+    const total = cartItems.reduce((sum, item) => {
+      const price = Number(item.FinalPrice) || 0;
+      const qty = item.quantity || 1;
+      return sum + price * qty;
+    }, 0);
+
+    cartTotalElement.innerHTML = `Total: $${total.toFixed(2)}`;
+  } else {
+    cartFooter.classList.add("hide");
+  }
+
   let deleteButtons = document.querySelectorAll(".btn");
   for (let i = 0; i < deleteButtons.length; i++) {
     deleteButtons[i].addEventListener("click", () => {
