@@ -6,7 +6,7 @@ export default class Auth {
     }
 
     login(username, password) {
-        // Example: simple static check (replace with real API call if needed)
+        // Example: simple static check 
         if (username === 'admin' && password === 'password') {
             this.loggedIn = true;
             this.user = { name: username };
