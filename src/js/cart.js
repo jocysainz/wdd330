@@ -16,11 +16,11 @@ function renderCartContents() {
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 
-  const cartFooter = document.querySelector(".cart-footer");
+  // const cartFooter = document.querySelector(".cart-footer");
   const cartTotalElement = document.querySelector(".cart-total");
 
   if (cartItems.length > 0) {
-    cartFooter.classList.remove("hide");
+    // cartFooter.classList.remove("hide");
 
     const total = cartItems.reduce((sum, item) => {
       const price = Number(item.FinalPrice) || 0;
@@ -30,7 +30,7 @@ function renderCartContents() {
 
     cartTotalElement.innerHTML = `Total: $${total.toFixed(2)}`;
   } else {
-    cartFooter.classList.add("hide");
+    // cartFooter.classList.add("hide");
   }
 
   let deleteButtons = document.querySelectorAll(".btn");
