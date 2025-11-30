@@ -1,11 +1,19 @@
 import { loadHeaderFooter } from "./utils.mjs";
-import ProductData from "./ProductData.mjs";
-import ProductList from "./ProductList.mjs"; //before it was ProducList
 
-loadHeaderFooter();
+async function initHeader() {
+  await loadHeaderFooter();
 
-const dataSource = new ProductData("tents");
-const element = document.querySelector(".product-list");
-const productList = new ProductList("Tents", dataSource, element);//before it was ProducList
+  const searchForm = document.getElementById("searchForm");
+  const searchInput = document.getElementById("searchInput");
 
-productList.init();
+  if (searchForm && searchInput) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = searchInput.value.trim();
+      if (!query) return;
+      window.location.href = `../product_listing/index.html?category=${encodeURIComponent(query)}`;
+    });
+  }
+}
+
+initHeader();

@@ -9,7 +9,12 @@
 </head>
 
 <body>
-  <header class="divider" id="main-header"></header>
+  <header class="divider" id="main-header">
+    <form id="searchForm">
+      <input type="text" id="searchInput" placeholder="Search products..." />
+      <button type="submit">Search</button>
+    </form>
+  </header>
   <main class="divider">
     <div class="hero">
         <img
@@ -28,6 +33,40 @@
         </p>
       </div>
     </div>
+
+
+<section class="categories">
+  <h2>Shop by Category</h2>
+  <ul class="category-list">
+    <li class="category-card">
+      <a href="product_listing/index.html?category=tents">
+        <img src="https://byui-cse.github.io/wdd330-ww-course/images/category-tents.svg" alt="Tents" />
+        <h3>Tents</h3>
+      </a>
+    </li>
+    <li class="category-card">
+      <a href="product_listing/index.html?category=backpacks">
+        <img src="https://byui-cse.github.io/wdd330-ww-course/images/category-backpacks.svg" alt="Backpacks" />
+        <h3>Backpacks</h3>
+      </a>
+    </li>
+    <li class="category-card">
+      <a href="product_listing/index.html?category=sleeping-bags">
+        <img src="https://byui-cse.github.io/wdd330-ww-course/images/category-sleepingbags.svg" alt="Sleeping Bags" />
+        <h3>Sleeping Bags</h3>
+      </a>
+    </li>
+    <li class="category-card">
+      <a href="product_listing/index.html?category=hammocks">
+        <img src="https://byui-cse.github.io/wdd330-ww-course/images/category-hammocks.svg" alt="Hammocks" />
+        <h3>Hammocks</h3>
+      </a>
+    </li>
+  </ul>
+</section>
+
+
+
 
     <section class="products">
       <h2>Top Products</h2>

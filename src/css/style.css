@@ -71,6 +71,25 @@ p {
   background-color: white;
 }
 
+.category-list {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 5rem 0;
+}
+
+.category-card {
+  text-align: center;
+  margin: 1rem;
+}
+
+.category-card img {
+  width: 45px;
+  height: auto;
+}
+
 .logo--square {
   font-size: var(--small-font);
   width: 110px;
