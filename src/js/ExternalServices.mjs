@@ -1,10 +1,13 @@
-const baseURL = import.meta.env.VITE_SERVER_URL;
+// const baseURL = import.meta.env.VITE_SERVER_URL;
 
-function convertToJson(res) {
-  if (res.ok) {
-    return res.json();
+const baseURL = "http://server-nodejs.cit.byui.edu:3000/";
+
+async function convertToJson(res) {
+  const jsonResponse = await res.json();
+  if (jsonResponse.ok) {
+    return jsonResponse;
   } else {
-    throw new Error("Bad Response");
+    throw { name: "servicesError", message: jsonResponse };
   }
 }
 
@@ -33,6 +36,7 @@ export default class ExternalServices {
       },
       body: JSON.stringify(payload),
     };
-    return await fetch(`${baseURL}checkout/`, options).then(convertToJson);
+    return await fetch(baseURL + "checkout/", options)
+    // return await fetch(`${baseURL}checkout/`, options).then(convertToJson);
   }
 }

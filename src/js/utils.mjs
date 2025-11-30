@@ -14,13 +14,13 @@ export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 // set a listener for both touchend and click
-export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
-    event.preventDefault();
-    callback();
-  });
-  qs(selector).addEventListener("click", callback);
-}
+// export function setClick(selector, callback) {
+//   qs(selector).addEventListener("touchend", (event) => {
+//     event.preventDefault();
+//     callback();
+//   });
+//   qs(selector).addEventListener("click", callback);
+// }
 
 export function getParam(param) {
   const queryString = window.location.search;
@@ -60,4 +60,33 @@ export async function loadHeaderFooter() {
 
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+}
+
+export function setClick(selector, callback) {
+  qs(selector).addEventListener("touchend", (event) => {
+    event.preventDefault();
+    callback();
+  });
+  qs(selector).addEventListener("click", callback);
+}
+
+export function alertMessage(message, scroll = true) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+  alert.addEventListener("click", function(e) {
+    if (e.target.tagName == "SPAN") {
+      main.removeChild(this);
+    }
+  })
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  if (scroll)
+    window.scrollTo(0, 0);
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll(".alert");
+  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
 }
