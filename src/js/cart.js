@@ -6,6 +6,12 @@ import {
 
 loadHeaderFooter();
 
+// const clearCart = document.querySelector("#success");
+
+// if (clearCart.textContent === "Your order was made succesfully") {
+//   localStorage.clear();
+// }
+
 function renderCartContents() {
   let cartItems = getLocalStorage("so-cart");
 
