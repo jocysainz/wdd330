@@ -2,12 +2,28 @@ import ProductData from "./ProductData.mjs";
 import ProductList from "./ProductList.mjs";
 import { loadHeaderFooter, getParam } from "./utils.mjs";
 
-loadHeaderFooter();
+async function init() {
+  await loadHeaderFooter();
 
-const category = getParam("category");
-const dataSource = new ProductData();
+  const searchForm = document.getElementById("searchForm");
+  const searchInput = document.getElementById("searchInput");
 
-const element = document.querySelector(".product-list");
-const productList = new ProductList(category, dataSource, element);
+  if (searchForm && searchInput) {
+    searchForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const query = searchInput.value.trim();
+      if (!query) return;
+      window.location.href = `index.html?search=${encodeURIComponent(query)}`;
+    });
+  }
 
-productList.init();
+  const searchTerm = getParam("search");
+
+  const dataSource = new ProductData();
+  const element = document.getElementById("product-list");
+
+  const productList = new ProductList(searchTerm, dataSource, element);
+  await productList.init();
+}
+
+init();
