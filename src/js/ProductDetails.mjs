@@ -32,25 +32,32 @@ export default class ProductDetails {
 
         this.renderProductDetails("");
         document
-            .getElementById('addToCart')
-            .addEventListener('click', this.addProductToCart.bind(this));
+            .getElementById("addToCart")
+            .addEventListener("click", this.addProductToCart.bind(this));
     }
 
-    addProductToCart() {
-        const cartItems = getLocalStorage("so-cart") || [];
-        cartItems.push(this.product);
-        setLocalStorage("so-cart", cartItems);
-        alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
+   addProductToCart() {
+    const cartItems = getLocalStorage("so-cart") || [];
+
+    const existing = cartItems.find(item => item.Id === this.product.Id);
+
+    if (existing) {
+        existing.quantity = (existing.quantity || 1) + 1;
+    } else {
+        cartItems.push({ ...this.product, quantity: 1 });
     }
 
-    renderProductDetails(selector) {
-        const element = document.querySelector(selector);
-        element.inserrAdjacentHTML(
-            "afterBegin",
-            productDetailsTemplate(this.product)
-        );
-        productDetailsTemplate(this.product);
-    }
+    setLocalStorage("so-cart", cartItems);
+    alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
+}
+
+   renderProductDetails(selector = ".product-detail-container") {
+    const element = document.querySelector(selector);
+    element.insertAdjacentHTML(
+        "afterbegin",
+        productDetailsTemplate(this.product)
+    );
+}
 }
 
 // function productDetailsTemplate(product) {
