@@ -38,36 +38,66 @@ function renderCartContents() {
   } else {
     // cartFooter.classList.add("hide");
   }
+  attachDeleteListeners();
+  attachQuantityListeners();
+}
 
-  let deleteButtons = document.querySelectorAll(".btn");
-  for (let i = 0; i < deleteButtons.length; i++) {
-    deleteButtons[i].addEventListener("click", () => {
-      cartItems = getLocalStorage("so-cart");
-      cartItems = cartItems.filter((item) => item.Id !== deleteButtons[i].id);
+  function attachDeleteListeners() {
+  document.querySelectorAll(".delete-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      let cartItems = getLocalStorage("so-cart") || [];
+      cartItems = cartItems.filter(item => item.Id !== btn.dataset.id);
       setLocalStorage("so-cart", cartItems);
-      renderCartContents();
+      
     });
-  }
+  });
+
 }
 
 function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
+  return `
+  <li class="cart-card divider" data-id="${item.Id}">
+    <a href="#" class="cart-card__image">
+      <img src="${item.Image}" alt="${item.Name}" />
+    </a>
     <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-  <button class="btn" id="${item.Id}">❌</button>
-</li>`;
+    <p class="cart-card__color">${item.Colors[0].ColorName}</p>
 
-  return newItem;
+    <p class="cart-card__quantity">
+      qty:
+      <input 
+        type="number" 
+        class="quantity-input" 
+        min="1" 
+        value="${item.quantity || 1}" 
+        data-id="${item.Id}"
+      />
+    </p>
+
+    <p class="cart-card__price">$${item.FinalPrice}</p>
+    <button class="btn delete-btn" data-id="${item.Id}">❌</button>
+  </li>`;
 }
 
+function attachQuantityListeners() {
+  document.querySelectorAll(".quantity-input").forEach(input => {
+    input.addEventListener("change", (e) => {
+      const id = e.target.dataset.id;
+      const newQty = Number(e.target.value);
+
+      if (newQty < 1) {
+        e.target.value = 1;
+        return;
+      }
+
+      let cartItems = getLocalStorage("so-cart") || [];
+      const item = cartItems.find(i => i.Id === id);
+      if (item) item.quantity = newQty;
+
+      setLocalStorage("so-cart", cartItems);
+      renderCartContents();
+    });
+  });
+
+}
 renderCartContents();
